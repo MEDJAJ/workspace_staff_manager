@@ -15,20 +15,13 @@
     </h1>
 
    
-    <section class="flex-1 overflow-y-auto space-y-3 pr-2">
+    <section class="flex-1 overflow-y-auto space-y-3 pr-2" id="section_employes">
 
        
-        <div class="flex items-center gap-3 bg-gray-50 hover:bg-gray-100 cursor-pointer p-3 rounded-xl shadow-sm transition">
-            <img src="user.jpg" class="w-12 h-12 rounded-full border" />
-
-            <div class="flex flex-col">
-                <p class="text-sm font-medium text-gray-800">Nom employé</p>
-                <p class="text-xs text-gray-500">Rôle employé</p>
-            </div>
-        </div>
+       
 
        
-        <div class="flex items-center gap-3 bg-gray-50 hover:bg-gray-100 cursor-pointer p-3 rounded-xl shadow-sm transition">
+        <div class="flex items-center gap-3 bg-gray-100 hover:bg-gray-200 cursor-pointer p-3 rounded-xl shadow-sm transition">
             <img src="user.jpg" class="w-12 h-12 rounded-full border" />
 
             <div class="flex flex-col">
@@ -40,7 +33,7 @@
     </section>
 
  
-    <button 
+    <button id="ajauter"
         class="bg-green-600 hover:bg-green-700 w-full text-white py-2 mt-4 rounded-xl font-medium shadow-md transition">
         Add New Worker
     </button>
@@ -56,7 +49,7 @@
   <p class="text-white border-2 border-black p-[2px] -mt-[10px] rounded-bl-xl rounded-br-xl">salle réception</p>
   
   
-<div class="grid grid-cols-3 flex-1 gap-[2px]">
+<div class="grid grid-cols-3 flex-1 gap-[2px]" id="salle_réception">
 
      <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
         <img 
@@ -68,7 +61,7 @@
           John Doe
         </span>
 
-        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4">
+        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_eréception">
           ✕
         </button>
     </div>
@@ -83,7 +76,7 @@
 
 
     
-    <button class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
+    <button id="btn_réception_ajauter" class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
         +
     </button>
 
@@ -95,7 +88,7 @@
   <p class="text-white border-2 border-black p-[2px] -mt-[10px] rounded-bl-xl rounded-br-xl">salle conférence</p>
   
   
-<div class="grid grid-cols-3 flex-1 gap-[2px]">
+<div class="grid grid-cols-3 flex-1 gap-[2px]" id="salle_conférence">
 
      <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
         <img 
@@ -107,7 +100,7 @@
           John Doe
         </span>
 
-        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4">
+        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_econférence">
           ✕
         </button>
     </div>
@@ -125,7 +118,7 @@
 
 
     
-    <button class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
+    <button id="btn_conférence_ajauter" class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
         +
     </button>
 
@@ -144,7 +137,7 @@
   <p class="text-white border-2 border-black p-[2px] -mt-[10px] rounded-bl-xl rounded-br-xl">salle serveurs</p>
   
   
-<div class="grid grid-cols-2 flex-1 gap-[2px]">
+<div class="grid grid-cols-2 flex-1 gap-[2px]" id="salle_serveurs">
 
      <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
         <img 
@@ -156,7 +149,7 @@
           John Doe
         </span>
 
-        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4">
+        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_eserveur">
           ✕
         </button>
     </div>
@@ -174,7 +167,7 @@
 
 
     
-    <button class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
+    <button id="btn_serveure_ajauter" class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
         +
     </button>
 
@@ -187,7 +180,7 @@
   <p class="text-white border-2 border-black p-[2px] -mt-[10px] rounded-bl-xl rounded-br-xl">salle sécurité</p>
   
   
-<div class="grid grid-cols-2 flex-1 gap-[2px]">
+<div class="grid grid-cols-2 flex-1 gap-[2px]" id="salle_sécurite">
 
      <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
         <img 
@@ -199,7 +192,7 @@
           John Doe
         </span>
 
-        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4">
+        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_esécurite">
           ✕
         </button>
     </div>
@@ -217,7 +210,7 @@
 
 
     
-    <button class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
+    <button id="btn_securite_ajauter" class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
         +
     </button>
 
@@ -235,7 +228,7 @@
   <p class="text-white border-2 border-black p-[2px] -mt-[10px] rounded-bl-xl rounded-br-xl"> salle personnel</p>
   
   
-<div class="grid grid-cols-2 flex-1 gap-[2px]">
+<div class="grid grid-cols-2 flex-1 gap-[2px]" id="salle_personnel">
 
      <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
         <img 
@@ -247,7 +240,7 @@
           John Doe
         </span>
 
-        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4">
+        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_epersonnele">
           ✕
         </button>
     </div>
@@ -266,7 +259,7 @@
 
 
     
-    <button class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
+    <button id="btn_personnel_ajauter" class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
         +
     </button>
 
@@ -276,7 +269,7 @@
   <p class="text-white border-2 border-black p-[2px] -mt-[10px] rounded-bl-xl rounded-br-xl"> salle d’archives</p>
   
   
-<div class="grid grid-cols-2 flex-1 gap-[2px]">
+<div class="grid grid-cols-2 flex-1 gap-[2px]" id="salle_archive">
 
      <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
         <img 
@@ -288,7 +281,7 @@
           John Doe
         </span>
 
-        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4">
+        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_earchive">
           ✕
         </button>
     </div>
@@ -303,7 +296,7 @@
 
 
     
-    <button class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
+    <button id="btn_archive_ajauter" class="rounded-tl-[50px] -mb-2 rounded-tr-[50px] w-[40px] h-[30px] bg-blue-600 text-white self-center">
         +
     </button>
 
@@ -321,36 +314,137 @@
 
 
     <div id="popup" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 relative">
-      <h2 class="text-xl font-bold mb-4 text-center text-orange-500">Ajouter Bénéficiaires</h2>
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 relative ">
+      <h2 class="text-xl font-bold mb-4 text-center text-orange-500">Ajouter D'employés </h2>
       
-      <form id="form" class="space-y-4">
+      <form id="form" class="space-y-4 ">
         <div>
           <label class="block text-sm font-medium text-gray-700">Nom</label>
-          <input type="text" name="nom" required id="nom"
+          <input type="text" name="nom" required id="nom" placeholder="ahmed"
+                 class="w-full border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200 outline-none">
+        </div>
+
+
+        <div>
+          <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+          <select  required id="role"
+                 class="w-full border border-gray-300 rounded-lg p-2  focus:ring-blue-200 outline-none">
+                 
+<option value="Manager">Manager</option>
+<option value="Réceptionniste">Réceptionniste</option>
+<option value="Techniciens IT">Techniciens IT</option>
+<option value="Agent de sécurité">Agent de sécurité</option>
+<option value="Nettoyage">Nettoyage</option>
+<option value="Autre rôle">Autre rôle</option>
+                 </select>
+        </div>
+
+
+        
+
+
+<div class="flex gap-8 justify-start items-center">
+<div >
+
+<!-- https://banner2.cleanpng.com/20180802/xfe/8a131494a7240fd0709ab245d1d069af.webp -->
+ <img 
+ 
+          src="user.jpg" id="image"
+          class="w-16 h-16 border rounded-full object-cover"
+        />
+        </div>
+         <div class="flex-1">
+          <label class="block text-sm font-medium text-gray-700">Url</label>
+          <input oninput="updateImage()" type="url" name="url" required id="url" placeholder="https://www.pexels.com/image.jpg"
+                 class="w-full  border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200 outline-none">
+        </div>
+
+        </div>
+
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="email" name="email" required id="email" placeholder="jajaa_mohammede@gmail.com"
                  class="w-full border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200 outline-none">
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700">Prénom</label>
-          <input type="text" name="prenom" required id="prenom"
+          <label class="block text-sm font-medium text-gray-700">Téléphone</label>
+          <input type="tel" name="telephone" required id="telephone" placeholder="0643783510"
                  class="w-full border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200 outline-none">
         </div>
 
-        <div>
-          <label class="block text-sm font-medium text-gray-700">RIB</label>
-          <input type="text" name="rib" required id="rib"
-                 class="w-full border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200 outline-none">
+        <div class="flex justify-center">
+       <button class="bg-orange-600  rounded-xl px-8 py-2 text-white">Ajouter Expérience</button>
         </div>
 
         <div class="flex justify-end gap-3 pt-3">
           <button type="button" id="closeBtn"
                   class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100">Annuler</button>
-          <button type="submit" id="envoyer"
+          <button type="button" id="envoyer"
                   class="px-4 py-2 rounded-lg bg-orange-600 text-white hover:bg-green-700">Enregistrer</button>
         </div>
+
+
+        
+
+
+       
       </form>
     </div>
   </div>
+
+
+
+   <div id="popup_liste_selectionner" class="fixed inset-0 bg-black/50 hidden flex flex-col gap-2 items-center justify-center z-50">
+ 
+     <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
+        <img 
+          src="user.jpg" 
+          class="w-4 h-4 rounded-full object-cover"
+        />
+
+        <span class="font-medium text-[8px] text-gray-800">
+          John Doe
+        </span>
+
+        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_eréception">
+          ✕
+        </button>
+    </div>
+
+      <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
+        <img 
+          src="user.jpg" 
+          class="w-4 h-4 rounded-full object-cover"
+        />
+
+        <span class="font-medium text-[8px] text-gray-800">
+          John Doe
+        </span>
+
+        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_eréception">
+          ✕
+        </button>
+    </div>
+
+      <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
+        <img 
+          src="user.jpg" 
+          class="w-4 h-4 rounded-full object-cover"
+        />
+
+        <span class="font-medium text-[8px] text-gray-800">
+          John Doe
+        </span>
+
+        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_eréception">
+          ✕
+        </button>
+    </div>
+   
+   </div>
+
+  <script src="fonctionnement.js"></script>
 </body>
 </html>
