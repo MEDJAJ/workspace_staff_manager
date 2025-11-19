@@ -12,6 +12,8 @@ const role=document.getElementById("role");
 const email=document.getElementById("email");
 const telephone=document.getElementById("telephone");
 
+const modalEmploye=document.getElementById("modalEmploye");
+const closeModalEmploye=document.getElementById("closeModalEmploye");
 
 const section_employes=document.getElementById("section_employes");
 
@@ -39,6 +41,16 @@ const btn_personnel_ajauter=document.getElementById("btn_personnel_ajauter");
 const salle_archive=document.getElementById("salle_archive");
 const remove_earchive=document.getElementById("remove_earchive");
 const btn_archive_ajauter=document.getElementById("btn_archive_ajauter");
+
+
+//detaills informations
+
+const empAvatar=document.getElementById("empAvatar");
+const empNom=document.getElementById("empNom");
+const empRole=document.getElementById("empRole");
+const empEmail=document.getElementById("empEmail");
+const empPhone=document.getElementById("empPhone");
+
 
 
 
@@ -94,6 +106,10 @@ employes.push(employe);
     
 });
 
+closeModalEmploye.addEventListener("click",()=>{
+    modalEmploye.classList.add("hidden");
+})
+
 
 function saveLocaleStorage(employes){
     localStorage.setItem("employes",JSON.stringify(employes))
@@ -105,6 +121,18 @@ function createCard(employe){
     const div=document.createElement("div");
     div.dataset.id=employe.id;
     div.classList.add("flex", "items-center", "gap-3", "bg-gray-100" ,"hover:bg-gray-200", "cursor-pointer" ,"p-3", "rounded-xl", "shadow-sm", "transition");
+    div.addEventListener("click",()=>{
+      let id=Number(div.dataset.id);
+      let employe_cliquer=employes.find(e=>e.id==id);
+      empAvatar.src=employe_cliquer.url;
+      empNom.textContent=employe_cliquer.nom;
+      empRole.textContent=employe_cliquer.role;
+      empEmail.textContent=employe_cliquer.email;
+      empPhone.textContent=employe_cliquer.telephone;
+      
+modalEmploye.classList.remove("hidden");
+
+    })
    const img=document.createElement("img");
    
    img.src=employe.url;
@@ -289,7 +317,6 @@ btn_réception_ajauter.addEventListener("click", () => {
                 removeemployer(id);
 
                 popup_liste_selectionner.classList.add("hidden");
-
                 div_salle.querySelector(".remove-btn").addEventListener("click", () => {
                     div_salle.remove();
                     addemployer(2, id);

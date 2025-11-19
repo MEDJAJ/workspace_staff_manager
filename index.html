@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workspace Staff Manager</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
       <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex">
@@ -395,6 +396,63 @@
     
    
    </div>
+
+
+
+
+
+ 
+<div id="modalEmploye" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative">
+
+ 
+    <h2 class="text-xl font-bold mb-4 text-center text-orange-600">Informations de l'employé</h2>
+
+   
+    <button id="closeModalEmploye"
+            class="absolute top-3 right-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full w-8 h-8 flex items-center justify-center">
+      ✕
+    </button>
+
+ 
+    <div class="flex flex-col items-center">
+
+   
+      <img id="empAvatar"
+           src="user.jpg"
+           class="w-24 h-24 rounded-full object-cover border shadow-md" />
+
+     
+      <h3 id="empNom" class="text-lg font-semibold mt-3 text-gray-800">Nom Employé</h3>
+
+    
+      <p id="empRole" class="text-sm text-gray-500">Role Employé</p>
+
+      <hr class="my-4 w-full border-gray-300">
+
+      
+      <div class="w-full flex items-center gap-3 mb-2">
+        <div class="bg-gray-100 p-2 rounded-lg">
+         <i class="fas fa-envelope text-blue-600"></i>
+        </div>
+        <p id="empEmail" class="text-gray-700 text-sm">example@mail.com</p>
+      </div>
+
+     
+      <div class="w-full flex items-center gap-3">
+        <div class="bg-gray-100 p-2 rounded-lg">
+          <i class="fa-solid fa-phone text-red-500"></i>
+        </div>
+        <p id="empPhone" class="text-gray-700 text-sm">06 12 34 56 78</p>
+      </div>
+    </div>
+
+   
+  
+
+  </div>
+</div>
+
 
   <script src="fonctionnement.js"></script>
 </body>
