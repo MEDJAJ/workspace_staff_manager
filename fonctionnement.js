@@ -17,6 +17,31 @@ const section_employes=document.getElementById("section_employes");
 
 const popup_liste_selectionner=document.getElementById("popup_liste_selectionner");
 const btn_réception_ajauter=document.getElementById("btn_réception_ajauter");
+const salle_réception=document.getElementById("salle_réception");
+const remove_eréception=document.getElementById("remove_eréception");
+
+const salle_conférence=document.getElementById("salle_conférence");
+const  remove_econférence=document.getElementById("remove_econférence");
+const btn_conférence_ajauter=document.getElementById("btn_conférence_ajauter");
+
+const salle_serveurs=document.getElementById("salle_serveurs");
+const remove_eserveur=document.getElementById("remove_eserveur");
+const btn_serveure_ajauter=document.getElementById("btn_serveure_ajauter");
+
+const salle_sécurite=document.getElementById("salle_sécurite");
+const remove_esécurite=document.getElementById("remove_esécurite");
+const btn_securite_ajauter=document.getElementById("btn_securite_ajauter");
+
+const salle_personnel=document.getElementById("salle_personnel");
+const remove_epersonnele=document.getElementById("remove_epersonnele");
+const btn_personnel_ajauter=document.getElementById("btn_personnel_ajauter");
+
+const salle_archive=document.getElementById("salle_archive");
+const remove_earchive=document.getElementById("remove_earchive");
+const btn_archive_ajauter=document.getElementById("btn_archive_ajauter");
+
+
+
 
 btn_réception_ajauter.addEventListener("click",()=>{
     popup_liste_selectionner.classList.remove("hidden")
