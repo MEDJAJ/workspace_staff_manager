@@ -21,14 +21,7 @@
        
 
        
-        <div class="flex items-center gap-3 bg-gray-100 hover:bg-gray-200 cursor-pointer p-3 rounded-xl shadow-sm transition">
-            <img src="user.jpg" class="w-12 h-12 rounded-full border" />
-
-            <div class="flex flex-col">
-                <p class="text-sm font-medium text-gray-800">Nom employé</p>
-                <p class="text-xs text-gray-500">Rôle employé</p>
-            </div>
-        </div>
+        
 
     </section>
 
@@ -319,7 +312,7 @@
       
       <form id="form" class="space-y-4 ">
         <div>
-          <label class="block text-sm font-medium text-gray-700">Nom</label>
+          <label  class="block text-sm font-medium text-gray-700">Nom</label>
           <input type="text" name="nom" required id="nom" placeholder="ahmed"
                  class="w-full border border-gray-300 rounded-lg p-2 focus:ring focus:ring-blue-200 outline-none">
         </div>
@@ -331,11 +324,12 @@
                  class="w-full border border-gray-300 rounded-lg p-2  focus:ring-blue-200 outline-none">
                  
 <option value="Manager">Manager</option>
-<option value="Réceptionniste">Réceptionniste</option>
-<option value="Techniciens IT">Techniciens IT</option>
+<option value="Receptionniste">Receptionniste</option>
+<option value="Technicien IT">Technicien IT</option>
 <option value="Agent de sécurité">Agent de sécurité</option>
 <option value="Nettoyage">Nettoyage</option>
-<option value="Autre rôle">Autre rôle</option>
+<option value="Autres">Autres</option>
+
 </select>
         </div>
 
@@ -398,50 +392,7 @@
 
    <div id="popup_liste_selectionner" class="fixed inset-0 bg-black/50 hidden flex flex-col gap-2 items-center justify-center z-50">
  
-     <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
-        <img 
-          src="user.jpg" 
-          class="w-4 h-4 rounded-full object-cover"
-        />
-
-        <span class="font-medium text-[8px] text-gray-800">
-          John Doe
-        </span>
-
-        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_eréception">
-          ✕
-        </button>
-    </div>
-
-      <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
-        <img 
-          src="user.jpg" 
-          class="w-4 h-4 rounded-full object-cover"
-        />
-
-        <span class="font-medium text-[8px] text-gray-800">
-          John Doe
-        </span>
-
-        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_eréception">
-          ✕
-        </button>
-    </div>
-
-      <div class="flex items-center gap-[3px] bg-gray-100 rounded-lg h-[30px] px-2 w-fit">
-        <img 
-          src="user.jpg" 
-          class="w-4 h-4 rounded-full object-cover"
-        />
-
-        <span class="font-medium text-[8px] text-gray-800">
-          John Doe
-        </span>
-
-        <button class="ml-auto text-gray-500 bg-red-600 text-white rounded-full text-[10px] h-4 w-4" id="remove_eréception">
-          ✕
-        </button>
-    </div>
+    
    
    </div>
 

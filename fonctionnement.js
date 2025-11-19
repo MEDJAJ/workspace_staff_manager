@@ -43,9 +43,7 @@ const btn_archive_ajauter=document.getElementById("btn_archive_ajauter");
 
 
 
-btn_réception_ajauter.addEventListener("click",()=>{
-    popup_liste_selectionner.classList.remove("hidden")
-})
+
 
 
 
@@ -62,7 +60,7 @@ function updateImage(){
     image.src=value_url;
 }
 
-const  employes=JSON.parse(localStorage.getItem("employes")) || [];
+let  employes=JSON.parse(localStorage.getItem("employes")) || [];
 if(employes.length!==0){
     employes.forEach(element => createCard(element));
 }
@@ -103,7 +101,7 @@ function saveLocaleStorage(employes){
 
 
 function createCard(employe){
-   
+
     const div=document.createElement("div");
     div.dataset.id=employe.id;
     div.classList.add("flex", "items-center", "gap-3", "bg-gray-100" ,"hover:bg-gray-200", "cursor-pointer" ,"p-3", "rounded-xl", "shadow-sm", "transition");
@@ -183,7 +181,7 @@ const zones = [
     zoneId: 2, 
     zoneName: "Salle Réception", 
     allowedRoles: ["Receptionniste"], 
-    capacity: 2, 
+    capacity: 3, 
     assignedEmployees: [] 
   },
   { 
@@ -217,4 +215,127 @@ const zones = [
 ];
 
 
+function canAssign(employe, zoneId) {
+   
+    const zone = zones.find(z => z.zoneId === zoneId);
+    
+    if (zone){
+  const role = zone.allowedRoles.includes(employe.role);
+
+   
+    const notAlreadyAssigned = !zone.assignedEmployees.some(emp => emp.id === employe.id);
+
+   
+    const capacity = zone.assignedEmployees.length < zone.capacity;
+
+   
+    return role && notAlreadyAssigned && capacity;
+    }else{
+        return false;
+    }
+
+    
+  
+}
+
+
+btn_réception_ajauter.addEventListener("click", () => {
+
+    popup_liste_selectionner.innerHTML = "";
+
+   
+    const zone = zones.find(z => z.zoneId === 2);
+
+    for (let i = 0; i < employes.length; i++){
+
+        if (canAssign(employes[i], 2)){
+
+            zone.assignedEmployees.push(employes[i]);  
+
+
+            const div = document.createElement("div");
+            div.classList.add("flex", "items-center", "gap-[3px]", "bg-gray-100",
+                "rounded-lg", "h-[30px]", "px-2", "w-fit", "cursor-pointer");
+
+            div.dataset.id = employes[i].id;
+
+            div.innerHTML = `
+                <img src="${employes[i].url}" class="w-4 h-4 rounded-full object-cover"/>
+                <span class="font-medium text-[8px] text-gray-800">${employes[i].nom}</span>
+                <p class="text-xs text-gray-500">${employes[i].role}</p>
+            `;
+
+            div.addEventListener("click", () => {
+
+                let id = Number(div.dataset.id);
+                const employe = employes.find(e => e.id === id);
+
+                const div_salle = document.createElement("div");
+                div_salle.classList.add("flex", "items-center", "gap-[3px]",
+                    "bg-gray-100", "rounded-lg", "h-[30px]", "px-2", "w-fit");
+
+                div_salle.dataset.id = id;
+
+                div_salle.innerHTML = `
+                    <img src="${employe.url}" class="w-4 h-4 rounded-full object-cover"/>
+                    <span class="font-medium text-[8px] text-gray-800">${employe.nom}</span>
+                    <button class="ml-auto bg-red-600 text-white rounded-full text-[10px] h-4 w-4 remove-btn">
+                        ✕
+                    </button>
+                `;
+
+                salle_réception.appendChild(div_salle);
+
+                removeemployer(id);
+
+                popup_liste_selectionner.classList.add("hidden");
+
+                div_salle.querySelector(".remove-btn").addEventListener("click", () => {
+                    div_salle.remove();
+                    addemployer(2, id);
+                });
+
+            });
+
+            popup_liste_selectionner.appendChild(div);
+        }
+    }
+
+    if (zone.assignedEmployees.length == 0) {
+        alert("Aucun employé disponible pour ce rôle !");
+        popup_liste_selectionner.classList.add("hidden");
+        return;
+    }
+
+    popup_liste_selectionner.classList.remove("hidden");
+});
+
+
+
+
+
+function removeemployer(id){
+    employes=employes.filter(e=>e.id !==id);
+    section_employes.innerHTML = "";
+     employes.forEach(e=>createCard(e));
+    saveLocaleStorage(employes);
+}
+
+function addemployer(zoneId, id) {
+
+    const zone = zones.find(z => z.zoneId === zoneId);
+    if (!zone) return;
+
+    const employe = zone.assignedEmployees.find(e => e.id === id);
+    if (!employe) return;
+
+    zone.assignedEmployees = zone.assignedEmployees.filter(e => e.id !== id);
+
+    employes.push(employe);
+
+    section_employes.innerHTML = "";
+    employes.forEach(e => createCard(e));
+
+    saveLocaleStorage(employes);
+}
 
