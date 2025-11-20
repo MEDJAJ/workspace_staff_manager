@@ -365,17 +365,38 @@ function canAssign(employe, zoneId) {
 
 btn_réception_ajauter.addEventListener("click", () => {
 
+   openPopupForZone(2,salle_réception);
+});
+
+btn_conférence_ajauter.addEventListener("click",()=>{
+      openPopupForZone(1,salle_conférence);
+})
+
+btn_serveure_ajauter.addEventListener("click",()=>{
+      openPopupForZone(3,salle_serveurs);
+})
+
+btn_securite_ajauter.addEventListener("click",() =>{
+    openPopupForZone(4,salle_sécurite);
+})
+btn_personnel_ajauter.addEventListener("click",()=>{
+    openPopupForZone(5,salle_personnel);
+})
+
+btn_archive_ajauter.addEventListener("click",()=>{
+    openPopupForZone(6,salle_archive)
+})
+
+
+
+function openPopupForZone(zoneId, containerElement) {
+
     popup_liste_selectionner.innerHTML = "";
+    const zone = zones.find(z => z.zoneId === zoneId);
 
-   
-    const zone = zones.find(z => z.zoneId === 2);
+    for (let i = 0; i < employes.length; i++) {
 
-    for (let i = 0; i < employes.length; i++){
-
-        if (canAssign(employes[i], 2)){
-
-            
-
+        if (canAssign(employes[i], zoneId)) {
 
             const div = document.createElement("div");
             div.classList.add("flex", "items-center", "gap-[3px]", "bg-gray-100",
@@ -390,8 +411,9 @@ btn_réception_ajauter.addEventListener("click", () => {
             `;
 
             div.addEventListener("click", () => {
- 
-            zone.assignedEmployees.push(employes[i]);  
+
+                zone.assignedEmployees.push(employes[i]);
+
                 let id = Number(div.dataset.id);
                 const employe = employes.find(e => e.id === id);
 
@@ -409,32 +431,25 @@ btn_réception_ajauter.addEventListener("click", () => {
                     </button>
                 `;
 
-                salle_réception.appendChild(div_salle);
+                containerElement.appendChild(div_salle);
 
                 removeemployer(id);
 
                 popup_liste_selectionner.classList.add("hidden");
-                div_salle.querySelector(".remove-btn").addEventListener("click", () =>{
+
+                div_salle.querySelector(".remove-btn").addEventListener("click", () => {
                     div_salle.remove();
-                    addemployer(2, id);
+                    addemployer(zoneId, id);
                 });
-
-         if (zone.assignedEmployees.length == 0) {
-        alert("Aucun employé disponible pour ce rôle !");
-        popup_liste_selectionner.classList.add("hidden");
-        return;
-    }
-
             });
 
             popup_liste_selectionner.appendChild(div);
         }
     }
 
-   
-   
     popup_liste_selectionner.classList.remove("hidden");
-});
+}
+
 
 
 
