@@ -341,15 +341,23 @@ function changerColor(){
     const archive_complet=document.getElementById("archive_complet");
     if(zones[1].assignedEmployees.length==0){
         réception_complet.classList.add("bg-red-600");
+    }else{
+         réception_complet.classList.remove("bg-red-600");
     }
     if(zones[2].assignedEmployees.length==0){
         serveurs_complet.classList.add("bg-red-600");
+    }else{
+         serveurs_complet.classList.remove("bg-red-600");
     }
       if(zones[3].assignedEmployees.length==0){
        sécurité_complet.classList.add("bg-red-600");
+    }else{
+         sécurité_complet.classList.remove("bg-red-600");
     }
       if(zones[5].assignedEmployees.length==0){
         archive_complet.classList.add("bg-red-600");
+    }else{
+        archive_complet.classList.remove("bg-red-600");
     }
 }
 changerColor();
@@ -438,8 +446,9 @@ function openPopupForZone(zoneId, containerElement) {
             `;
 
             div.addEventListener("click", () => {
-             changerColor();
+           
                 zone.assignedEmployees.push(employes[i]);
+                 changerColor();
 
                 let id = Number(div.dataset.id);
                 const employe = employes.find(e => e.id === id);
@@ -469,6 +478,7 @@ function openPopupForZone(zoneId, containerElement) {
                     addemployer(zoneId, id);
                      changerColor();
                 });
+                 
             });
 
             popup_liste_selectionner.appendChild(div);
