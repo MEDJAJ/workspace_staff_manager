@@ -332,9 +332,10 @@ const zones = [
   }
 ];
 
+
 function changerColor(){
 }
-
+changerColor();
 
 function canAssign(employe, zoneId) {
    
