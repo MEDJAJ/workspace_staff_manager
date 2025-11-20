@@ -54,6 +54,30 @@ const empPhone=document.getElementById("empPhone");
 
 
 
+let expIndex = 0;
+
+function addExperience() {
+    expIndex++;
+
+    const div = document.createElement("div");
+    div.className = "border p-3 rounded-lg bg-gray-100 experienceBlock";
+    div.innerHTML = `
+        <h3 class="font-semibold">Expérience ${expIndex}</h3>
+        <input type="text" placeholder="Poste" class="poste w-full border p-2 rounded-lg mb-2">
+        <input type="text" placeholder="Entreprise" class="entreprise w-full border p-2 rounded-lg mb-2">
+        <input type="date" placeholder="Début" class="debut w-full border p-2 rounded-lg mb-2">
+        <input type="date" placeholder="Fin" class="fin w-full border p-2 rounded-lg mb-2">
+        <textarea placeholder="Description" class="description w-full border p-2 rounded-lg"></textarea>
+        <button type="button" class="deleteExp bg-red-500 text-white px-3 py-1 rounded mt-2">Supprimer</button>
+    `;
+
+    document.getElementById("experiencesContainer").appendChild(div);
+
+   
+    div.querySelector(".deleteExp").addEventListener("click", () => {
+        div.remove();
+    });
+}
 
 
 
@@ -78,33 +102,52 @@ if(employes.length!==0){
 }
 
 let currentid = Number(localStorage.getItem("currentid")) || 0;
-envoyer.addEventListener("click",() =>{
-    const employes=JSON.parse(localStorage.getItem("employes")) || [];
-    const url_value=url.value;
-    const nom_value=nom.value;
-    const role_value=role.value;
-    const email_value=email.value;
-    const telephone_value=telephone.value;
-    const employe={
-        id:currentid,
-        url:url_value,
-        nom:nom_value,
-        role:role_value,
-        email:email_value,
-        telephone:telephone_value
-    }
-    if(validation(url_value,nom_value,email_value,telephone_value)){
-employes.push(employe);
-        currentid++;
-    localStorage.setItem("currentid", currentid);
-   saveLocaleStorage(employes);
-     createCard(employe);
-   popup.classList.add("hidden");
-    }
-    
+envoyer.addEventListener("click", () => {
+    const employes = JSON.parse(localStorage.getItem("employes")) || [];
+
+    const url_value = url.value;
+    const nom_value = nom.value;
+    const role_value = role.value;
+    const email_value = email.value;
+    const telephone_value = telephone.value;
+
    
-    
+    const expBlocks = document.querySelectorAll(".experienceBlock");
+    const experiences = [];
+
+    expBlocks.forEach(block => {
+        experiences.push({
+            poste: block.querySelector(".poste").value,
+            entreprise: block.querySelector(".entreprise").value,
+            debut: block.querySelector(".debut").value,
+            fin: block.querySelector(".fin").value,
+            description: block.querySelector(".description").value
+        });
+    });
+
+    const employe = {
+        id: currentid,
+        url: url_value,
+        nom: nom_value,
+        role: role_value,
+        email: email_value,
+        telephone: telephone_value,
+        experiences: experiences
+    };
+
+    if (validation(url_value, nom_value, email_value, telephone_value)) {
+        employes.push(employe);
+
+        currentid++;
+        localStorage.setItem("currentid", currentid);
+
+        saveLocaleStorage(employes);
+        createCard(employe);
+
+        popup.classList.add("hidden");
+    }
 });
+
 
 closeModalEmploye.addEventListener("click",()=>{
     modalEmploye.classList.add("hidden");
@@ -118,10 +161,14 @@ function saveLocaleStorage(employes){
 
 function createCard(employe){
 
+
+
     const div=document.createElement("div");
     div.dataset.id=employe.id;
     div.classList.add("flex", "items-center", "gap-3", "bg-gray-100" ,"hover:bg-gray-200", "cursor-pointer" ,"p-3", "rounded-xl", "shadow-sm", "transition");
     div.addEventListener("click",()=>{
+        const experiences_afficher=document.getElementById("experiences_afficher");
+        experiences_afficher.innerHTML="";
       let id=Number(div.dataset.id);
       let employe_cliquer=employes.find(e=>e.id==id);
       empAvatar.src=employe_cliquer.url;
@@ -129,6 +176,49 @@ function createCard(employe){
       empRole.textContent=employe_cliquer.role;
       empEmail.textContent=employe_cliquer.email;
       empPhone.textContent=employe_cliquer.telephone;
+ 
+
+      if(employe_cliquer.experiences.length!==0){
+        for(let i=0;i<employe_cliquer.experiences.length;i++){
+            const div_exp=document.createElement("div")
+            div_exp.innerHTML=`
+             <h3 class="text-lg font-bold mb-2 text-orange-400">Expérience Professionnelle ${i+1}</h3>
+        
+    
+
+        <div class="mb-2">
+          <p class="font-semibold text-gray-700">Poste:</p>
+          <p id="expPoste" class="text-gray-600">${employe_cliquer.experiences[i].poste}</p>
+        </div>
+
+        <div class="mb-2">
+          <p class="font-semibold text-gray-700">Entreprise:</p>
+          <p id="expEntreprise" class="text-gray-600">${employe_cliquer.experiences[i].entreprise}</p>
+        </div>
+
+        <div class="mb-2 flex gap-4">
+          <div>
+            <p class="font-semibold text-gray-700">Début:</p>
+            <p id="expDebut" class="text-gray-600">${employe_cliquer.experiences[i].debut}</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-700">Fin:</p>
+            <p id="expFin" class="text-gray-600">${employe_cliquer.experiences[i].fin}</p>
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <p class="font-semibold text-gray-700">Description:</p>
+          <p id="expDescription" class="text-gray-600">${employe_cliquer.experiences[i].description}</p>
+        </div>
+            `;
+
+            experiences_afficher.appendChild(div_exp);
+            
+        }
+           
+      }
+
       
 modalEmploye.classList.remove("hidden");
 
@@ -242,6 +332,9 @@ const zones = [
   }
 ];
 
+function changerColor(){
+}
+
 
 function canAssign(employe, zoneId) {
    
@@ -252,14 +345,16 @@ function canAssign(employe, zoneId) {
 
    
     const notAlreadyAssigned = !zone.assignedEmployees.some(emp => emp.id === employe.id);
+           
+   
+    // const capacity = zone.assignedEmployees.length < zone.capacity;
 
    
-    const capacity = zone.assignedEmployees.length < zone.capacity;
-
-   
-    return role && notAlreadyAssigned && capacity;
+    return role && notAlreadyAssigned;
     }else{
+         
         return false;
+       
     }
 
     
@@ -278,7 +373,7 @@ btn_réception_ajauter.addEventListener("click", () => {
 
         if (canAssign(employes[i], 2)){
 
-            zone.assignedEmployees.push(employes[i]);  
+            
 
 
             const div = document.createElement("div");
@@ -294,7 +389,8 @@ btn_réception_ajauter.addEventListener("click", () => {
             `;
 
             div.addEventListener("click", () => {
-
+ 
+            zone.assignedEmployees.push(employes[i]);  
                 let id = Number(div.dataset.id);
                 const employe = employes.find(e => e.id === id);
 
@@ -317,10 +413,16 @@ btn_réception_ajauter.addEventListener("click", () => {
                 removeemployer(id);
 
                 popup_liste_selectionner.classList.add("hidden");
-                div_salle.querySelector(".remove-btn").addEventListener("click", () => {
+                div_salle.querySelector(".remove-btn").addEventListener("click", () =>{
                     div_salle.remove();
                     addemployer(2, id);
                 });
+
+         if (zone.assignedEmployees.length == 0) {
+        alert("Aucun employé disponible pour ce rôle !");
+        popup_liste_selectionner.classList.add("hidden");
+        return;
+    }
 
             });
 
@@ -328,12 +430,8 @@ btn_réception_ajauter.addEventListener("click", () => {
         }
     }
 
-    if (zone.assignedEmployees.length == 0) {
-        alert("Aucun employé disponible pour ce rôle !");
-        popup_liste_selectionner.classList.add("hidden");
-        return;
-    }
-
+   
+   
     popup_liste_selectionner.classList.remove("hidden");
 });
 
@@ -349,7 +447,7 @@ function removeemployer(id){
 }
 
 function addemployer(zoneId, id) {
-
+    
     const zone = zones.find(z => z.zoneId === zoneId);
     if (!zone) return;
 
@@ -357,12 +455,14 @@ function addemployer(zoneId, id) {
     if (!employe) return;
 
     zone.assignedEmployees = zone.assignedEmployees.filter(e => e.id !== id);
-
+ console.log(employes)
     employes.push(employe);
-
+   
+ saveLocaleStorage(employes);
+console.log(employes)
     section_employes.innerHTML = "";
     employes.forEach(e => createCard(e));
 
-    saveLocaleStorage(employes);
+   
 }
 
