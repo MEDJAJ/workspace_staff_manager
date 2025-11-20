@@ -103,7 +103,7 @@ if(employes.length!==0){
 
 let currentid = Number(localStorage.getItem("currentid")) || 0;
 envoyer.addEventListener("click", () => {
-    const employes = JSON.parse(localStorage.getItem("employes")) || [];
+     employes = JSON.parse(localStorage.getItem("employes")) || [];
 
     const url_value = url.value;
     const nom_value = nom.value;
@@ -143,6 +143,7 @@ envoyer.addEventListener("click", () => {
 
         saveLocaleStorage(employes);
         createCard(employe);
+ 
 
         popup.classList.add("hidden");
     }
@@ -334,6 +335,22 @@ const zones = [
 
 
 function changerColor(){
+    const réception_complet=document.getElementById("réception_complet");
+    const serveurs_complet=document.getElementById("serveurs_complet");
+    const sécurité_complet=document.getElementById("sécurité_complet");
+    const archive_complet=document.getElementById("archive_complet");
+    if(zones[1].assignedEmployees.length==0){
+        réception_complet.classList.add("bg-red-600");
+    }
+    if(zones[2].assignedEmployees.length==0){
+        serveurs_complet.classList.add("bg-red-600");
+    }
+      if(zones[3].assignedEmployees.length==0){
+       sécurité_complet.classList.add("bg-red-600");
+    }
+      if(zones[5].assignedEmployees.length==0){
+        archive_complet.classList.add("bg-red-600");
+    }
 }
 changerColor();
 
@@ -366,18 +383,26 @@ function canAssign(employe, zoneId) {
 btn_réception_ajauter.addEventListener("click", () => {
 
    openPopupForZone(2,salle_réception);
+ 
+
 });
 
 btn_conférence_ajauter.addEventListener("click",()=>{
       openPopupForZone(1,salle_conférence);
+      
+
 })
 
 btn_serveure_ajauter.addEventListener("click",()=>{
       openPopupForZone(3,salle_serveurs);
+      
+
 })
 
 btn_securite_ajauter.addEventListener("click",() =>{
     openPopupForZone(4,salle_sécurite);
+  
+
 })
 btn_personnel_ajauter.addEventListener("click",()=>{
     openPopupForZone(5,salle_personnel);
@@ -385,6 +410,8 @@ btn_personnel_ajauter.addEventListener("click",()=>{
 
 btn_archive_ajauter.addEventListener("click",()=>{
     openPopupForZone(6,salle_archive)
+   
+
 })
 
 
@@ -411,7 +438,7 @@ function openPopupForZone(zoneId, containerElement) {
             `;
 
             div.addEventListener("click", () => {
-
+             changerColor();
                 zone.assignedEmployees.push(employes[i]);
 
                 let id = Number(div.dataset.id);
@@ -440,12 +467,22 @@ function openPopupForZone(zoneId, containerElement) {
                 div_salle.querySelector(".remove-btn").addEventListener("click", () => {
                     div_salle.remove();
                     addemployer(zoneId, id);
+                     changerColor();
                 });
             });
 
             popup_liste_selectionner.appendChild(div);
         }
     }
+    const supprimer=document.createElement("button");
+  supprimer.textContent = "Annuler";
+
+supprimer.classList.add( "bg-red-600",  "hover:bg-red-700",  "text-white","px-3","py-1", "rounded-lg", "text-sm","font-medium","transition", "duration-200","shadow"
+);
+    supprimer.addEventListener("click",()=>{
+        popup_liste_selectionner.classList.add("hidden");
+    })
+    popup_liste_selectionner.appendChild(supprimer);
 
     popup_liste_selectionner.classList.remove("hidden");
 }
