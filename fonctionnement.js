@@ -334,6 +334,8 @@ const zones = [
 ];
 
 
+
+
 function changerColor(){
     const réception_complet=document.getElementById("réception_complet");
     const serveurs_complet=document.getElementById("serveurs_complet");
@@ -360,7 +362,9 @@ function changerColor(){
         archive_complet.classList.remove("bg-red-600");
     }
 }
+
 changerColor();
+
 
 function canAssign(employe, zoneId) {
    
