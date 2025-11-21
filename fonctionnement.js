@@ -467,7 +467,7 @@ function openPopupForZone(zoneId, containerElement,currentezone){
                 div_salle.dataset.id = id;
                  div_salle.addEventListener("click",()=>{
 
-                        const experiences_afficher=document.getElementById("experiences_afficher");
+        const experiences_afficher=document.getElementById("experiences_afficher");
         experiences_afficher.innerHTML="";
       let id=Number(div_salle.dataset.id);
       let employe_cliquer=zone.assignedEmployees.find(e=>e.id==id);
@@ -520,6 +520,8 @@ function openPopupForZone(zoneId, containerElement,currentezone){
 
         
            
+      }else{
+        alert('incone');
       }
 
        document.getElementById("localisation").textContent= ` localisation actuelle : ${employe_cliquer.currentezone}`;
