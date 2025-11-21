@@ -183,7 +183,7 @@ function createCard(employe){
         for(let i=0;i<employe_cliquer.experiences.length;i++){
             const div_exp=document.createElement("div")
             div_exp.innerHTML=`
-             <h3 class="text-lg font-bold mb-2 text-orange-400">Expérience Professionnelle ${i+1}</h3>
+             <h3 class="text-lg font-bold mb-2 text-orange-400 ">Expérience Professionnelle ${i+1}</h3>
         
     
 
@@ -532,4 +532,17 @@ console.log(employes)
 
    
 }
+
+const aside = document.getElementById("aside");
+
+function openNav() {
+    aside.classList.add("w-[260px]");
+    aside.classList.remove("w-0");
+}
+
+function closeNav() {
+    aside.classList.add("w-0");
+    aside.classList.remove("md:w-[260px]");
+}
+
 
