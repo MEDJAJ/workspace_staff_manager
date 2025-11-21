@@ -132,7 +132,8 @@ envoyer.addEventListener("click", () => {
         role: role_value,
         email: email_value,
         telephone: telephone_value,
-        experiences: experiences
+        experiences: experiences,
+        currentezone:null
     };
 
     if (validation(url_value, nom_value, email_value, telephone_value)) {
@@ -166,7 +167,7 @@ function createCard(employe){
 
     const div=document.createElement("div");
     div.dataset.id=employe.id;
-    div.classList.add("flex", "items-center", "gap-3", "bg-gray-100" ,"hover:bg-gray-200", "cursor-pointer" ,"p-3", "rounded-xl", "shadow-sm", "transition");
+    div.classList.add("flex", "items-center", "gap-3", "bg-gray-100" ,"hover:bg-gray-200", "cursor-pointer" ,"p-3", "rounded-xl", "shadow-sm", "transition","shrink-0");
     div.addEventListener("click",()=>{
         const experiences_afficher=document.getElementById("experiences_afficher");
         experiences_afficher.innerHTML="";
@@ -234,11 +235,11 @@ modalEmploye.classList.remove("hidden");
     const card_info=document.createElement("div");
     card_info.classList.add("flex", "flex-col");
    const p1=document.createElement("p");
-   p1.classList.add("text-sm", "font-medium", "text-gray-800");
+   p1.classList.add("md:text-sm","text-[12px]", "font-medium", "text-gray-800");
    p1.textContent=employe.nom
     card_info.appendChild(p1);
        const p2=document.createElement("p");         
-       p2.classList.add("text-xs", "text-gray-500");
+       p2.classList.add("md:text-xs","text-[10px]", "text-gray-500");
        p2.textContent=employe.role;
     card_info.appendChild(p2);
         div.appendChild(card_info);
@@ -394,41 +395,41 @@ function canAssign(employe, zoneId) {
 
 btn_réception_ajauter.addEventListener("click", () => {
 
-   openPopupForZone(2,salle_réception);
+   openPopupForZone(2,salle_réception,"Salle Réception");
  
 
 });
 
 btn_conférence_ajauter.addEventListener("click",()=>{
-      openPopupForZone(1,salle_conférence);
+      openPopupForZone(1,salle_conférence,"Salle de conférence");
       
 
 })
 
 btn_serveure_ajauter.addEventListener("click",()=>{
-      openPopupForZone(3,salle_serveurs);
+      openPopupForZone(3,salle_serveurs,"Salle des serveurs");
       
 
 })
 
 btn_securite_ajauter.addEventListener("click",() =>{
-    openPopupForZone(4,salle_sécurite);
+    openPopupForZone(4,salle_sécurite,"Salle de sécurité");
   
 
 })
 btn_personnel_ajauter.addEventListener("click",()=>{
-    openPopupForZone(5,salle_personnel);
+    openPopupForZone(5,salle_personnel,"Salle du personnel");
 })
 
 btn_archive_ajauter.addEventListener("click",()=>{
-    openPopupForZone(6,salle_archive)
+    openPopupForZone(6,salle_archive,"Salle d’archives")
    
 
 })
 
 
 
-function openPopupForZone(zoneId, containerElement) {
+function openPopupForZone(zoneId, containerElement,currentezone){
 
     popup_liste_selectionner.innerHTML = "";
     const zone = zones.find(z => z.zoneId === zoneId);
@@ -450,8 +451,10 @@ function openPopupForZone(zoneId, containerElement) {
             `;
 
             div.addEventListener("click", () => {
-           
+                employes[i].currentezone=currentezone;
                 zone.assignedEmployees.push(employes[i]);
+                console.log(employes[i]);
+                console.log(zone.assignedEmployees)
                  changerColor();
 
                 let id = Number(div.dataset.id);
@@ -459,10 +462,70 @@ function openPopupForZone(zoneId, containerElement) {
 
                 const div_salle = document.createElement("div");
                 div_salle.classList.add("flex", "items-center", "gap-[3px]",
-                    "bg-gray-100", "rounded-lg", "h-[30px]", "px-2", "w-fit");
+                    "bg-gray-100", "rounded-lg", "h-[30px]", "px-2", "w-fit","hover:cursor-pointer");
 
                 div_salle.dataset.id = id;
+                 div_salle.addEventListener("click",()=>{
 
+                        const experiences_afficher=document.getElementById("experiences_afficher");
+        experiences_afficher.innerHTML="";
+      let id=Number(div_salle.dataset.id);
+      let employe_cliquer=zone.assignedEmployees.find(e=>e.id==id);
+      empAvatar.src=employe_cliquer.url;
+      empNom.textContent=employe_cliquer.nom;
+      empRole.textContent=employe_cliquer.role;
+      empEmail.textContent=employe_cliquer.email;
+      empPhone.textContent=employe_cliquer.telephone;
+ 
+      
+      if(employe_cliquer.experiences.length!==0){
+        for(let i=0;i<employe_cliquer.experiences.length;i++){
+            const div_exp=document.createElement("div")
+            div_exp.innerHTML=`
+             <h3 class="text-lg font-bold mb-2 text-orange-400 ">Expérience Professionnelle ${i+1}</h3>
+        
+    
+
+        <div class="mb-2">
+          <p class="font-semibold text-gray-700">Poste:</p>
+          <p id="expPoste" class="text-gray-600">${employe_cliquer.experiences[i].poste}</p>
+        </div>
+
+        <div class="mb-2">
+          <p class="font-semibold text-gray-700">Entreprise:</p>
+          <p id="expEntreprise" class="text-gray-600">${employe_cliquer.experiences[i].entreprise}</p>
+        </div>
+
+        <div class="mb-2 flex gap-4">
+          <div>
+            <p class="font-semibold text-gray-700">Début:</p>
+            <p id="expDebut" class="text-gray-600">${employe_cliquer.experiences[i].debut}</p>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-700">Fin:</p>
+            <p id="expFin" class="text-gray-600">${employe_cliquer.experiences[i].fin}</p>
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <p class="font-semibold text-gray-700">Description:</p>
+          <p id="expDescription" class="text-gray-600">${employe_cliquer.experiences[i].description}</p>
+        </div>
+            `;
+           
+
+            experiences_afficher.appendChild(div_exp);
+            
+        }
+
+        
+           
+      }
+
+       document.getElementById("localisation").textContent= ` localisation actuelle : ${employe_cliquer.currentezone}`;
+modalEmploye.classList.remove("hidden");
+                    
+                 });
                 div_salle.innerHTML = `
                     <img src="${employe.url}" class="w-4 h-4 rounded-full object-cover"/>
                     <span class="font-medium text-[8px] text-gray-800">${employe.nom}</span>
