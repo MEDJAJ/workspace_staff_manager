@@ -164,6 +164,8 @@ envoyer.addEventListener("click", () => {
     saveLocaleStorage(employes);
     createCard(employe);
 
+vider_inputes();
+
     popup.classList.add("hidden");
 });
 
@@ -195,6 +197,14 @@ function validateExperiences(experiences) {
     }
 
     return { valid: true };
+}
+
+function vider_inputes(){
+      url.value="";
+    nom.value="";
+    role.value="";
+    email.value="";
+    telephone.value="";
 }
 
 
@@ -314,8 +324,9 @@ if(regex_name.test(nom_value)){
     return false;
 }
 
-if(regex_url.test(url_value)){
+if(regex_url.test(url_value) || url_value==""){
     url.classList.add("border-green-500");
+   
 }else{
     url.classList.add("border-red-500");
     return false;
