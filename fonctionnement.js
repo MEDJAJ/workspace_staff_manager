@@ -93,7 +93,12 @@ closepopup.addEventListener("click",() =>{
 
 function updateImage(){
     let value_url=url.value;
-    image.src=value_url;
+    if(value_url){
+ image.src=value_url;
+    }else{
+        image.src="user.jpg";
+    }
+   
 }
 
 let  employes=JSON.parse(localStorage.getItem("employes")) || [];
@@ -102,8 +107,10 @@ if(employes.length!==0){
 }
 
 let currentid = Number(localStorage.getItem("currentid")) || 0;
+
+
 envoyer.addEventListener("click", () => {
-     employes = JSON.parse(localStorage.getItem("employes")) || [];
+    employes = JSON.parse(localStorage.getItem("employes")) || [];
 
     const url_value = url.value;
     const nom_value = nom.value;
@@ -111,7 +118,6 @@ envoyer.addEventListener("click", () => {
     const email_value = email.value;
     const telephone_value = telephone.value;
 
-   
     const expBlocks = document.querySelectorAll(".experienceBlock");
     const experiences = [];
 
@@ -125,6 +131,21 @@ envoyer.addEventListener("click", () => {
         });
     });
 
+   
+    const isValidMain = validation(url_value, nom_value, email_value, telephone_value);
+    if (!isValidMain) {
+        alert("Veuillez vérifier vos informations de base : nom, email, téléphone ou URL.");
+        return;
+    }
+
+  
+    const expValidation = validateExperiences(experiences);
+    if (!expValidation.valid) {
+        alert(expValidation.message);
+        return;
+    }
+
+
     const employe = {
         id: currentid,
         url: url_value,
@@ -133,22 +154,48 @@ envoyer.addEventListener("click", () => {
         email: email_value,
         telephone: telephone_value,
         experiences: experiences,
-        currentezone:null
+        currentezone: null
     };
 
-    if (validation(url_value, nom_value, email_value, telephone_value)) {
-        employes.push(employe);
+    employes.push(employe);
+    currentid++;
+    localStorage.setItem("currentid", currentid);
 
-        currentid++;
-        localStorage.setItem("currentid", currentid);
+    saveLocaleStorage(employes);
+    createCard(employe);
 
-        saveLocaleStorage(employes);
-        createCard(employe);
- 
-
-        popup.classList.add("hidden");
-    }
+    popup.classList.add("hidden");
 });
+
+
+function validateExperiences(experiences) {
+    for (let i = 0; i < experiences.length; i++) {
+        const exp = experiences[i];
+
+        if (!exp.poste || !exp.entreprise || !exp.debut || !exp.fin) {
+            return { valid: false, message: `Remplissez tous les champs de la expérience ${i + 1}` };
+        }
+
+        const debutDate = new Date(exp.debut);
+        const finDate = new Date(exp.fin);
+
+        if (debutDate >= finDate) {
+            return { valid: false, message: `La date de début doit être avant la date de fin pour la expérience ${i + 1}` };
+        }
+
+        for (let j = 0; j < i; j++) {
+            const otherExp = experiences[j];
+            const otherDebut = new Date(otherExp.debut);
+            const otherFin = new Date(otherExp.fin);
+
+            if ((debutDate <= otherFin && finDate >= otherDebut)) {
+                return { valid: false, message: `Chevauchement entre la expérience ${i + 1} et la expérience ${j + 1}` };
+            }
+        }
+    }
+
+    return { valid: true };
+}
 
 
 closeModalEmploye.addEventListener("click",()=>{
@@ -245,8 +292,14 @@ modalEmploye.classList.remove("hidden");
         div.appendChild(card_info);
         section_employes.appendChild(div);  
         
-     
+  
 }
+
+
+
+
+
+
 
 function validation(url_value,nom_value,email_value,telephone_value){
 const regex_name=/^[a-zA-ZÀ-ÿ\s]+$/;
@@ -300,21 +353,21 @@ const zones = [
   { 
     zoneId: 2, 
     zoneName: "Salle Réception", 
-    allowedRoles: ["Receptionniste"], 
+    allowedRoles: ["Manager","Receptionniste"], 
     capacity: 3, 
     assignedEmployees: [] 
   },
   { 
     zoneId: 3, 
     zoneName: "Salle des serveurs", 
-    allowedRoles: ["Technicien IT"], 
+    allowedRoles: ["Technicien IT","Manager"], 
     capacity: 3, 
     assignedEmployees: [] 
   },
   { 
     zoneId: 4, 
     zoneName: "Salle de sécurité", 
-    allowedRoles: ["Agent de sécurité"], 
+    allowedRoles: ["Agent de sécurité","Manager"], 
     capacity: 2, 
     assignedEmployees: [] 
   },
@@ -369,31 +422,28 @@ changerColor();
 
 function canAssign(employe, zoneId) {
    
+   
+
     const zone = zones.find(z => z.zoneId === zoneId);
-    
-    if (zone){
-  const role = zone.allowedRoles.includes(employe.role);
+    if (!zone) return false;
 
-   
-    const notAlreadyAssigned = !zone.assignedEmployees.some(emp => emp.id === employe.id);
-           
-   
-    // const capacity = zone.assignedEmployees.length < zone.capacity;
+    const allowed = zone.allowedRoles.map(r => r.trim().toLowerCase());
+    const empRole = employe.role.trim().toLowerCase();
 
-   
-    return role && notAlreadyAssigned;
-    }else{
-         
-        return false;
-       
-    }
+    const roleAllowed = allowed.includes(empRole);
 
-    
-  
+    const notAlready = !zone.assignedEmployees.some(emp => emp.id === employe.id);
+
+    return roleAllowed && notAlready;
 }
 
 
-btn_réception_ajauter.addEventListener("click", () => {
+    
+  
+
+
+
+btn_réception_ajauter.addEventListener("click", () =>{
 
    openPopupForZone(2,salle_réception,"Salle Réception");
  
@@ -433,9 +483,9 @@ function openPopupForZone(zoneId, containerElement,currentezone){
 
     popup_liste_selectionner.innerHTML = "";
     const zone = zones.find(z => z.zoneId === zoneId);
-
+      
     for (let i = 0; i < employes.length; i++) {
-
+             
         if (canAssign(employes[i], zoneId)) {
 
             const div = document.createElement("div");
@@ -520,8 +570,6 @@ function openPopupForZone(zoneId, containerElement,currentezone){
 
         
            
-      }else{
-        alert('incone');
       }
 
        document.getElementById("localisation").textContent= ` localisation actuelle : ${employe_cliquer.currentezone}`;
