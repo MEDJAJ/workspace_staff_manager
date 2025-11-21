@@ -93,7 +93,7 @@ closepopup.addEventListener("click",() =>{
 
 function updateImage(){
     let value_url=url.value;
-    if(value_url){
+    if(value_url!==""){
  image.src=value_url;
     }else{
         image.src="user.jpg";
@@ -230,7 +230,7 @@ function createCard(employe){
         experiences_afficher.innerHTML="";
       let id=Number(div.dataset.id);
       let employe_cliquer=employes.find(e=>e.id==id);
-      empAvatar.src=employe_cliquer.url;
+      empAvatar.src=employe_cliquer.url || "user.jpg";;
       empNom.textContent=employe_cliquer.nom;
       empRole.textContent=employe_cliquer.role;
       empEmail.textContent=employe_cliquer.email;
@@ -284,7 +284,7 @@ modalEmploye.classList.remove("hidden");
     })
    const img=document.createElement("img");
    
-   img.src=employe.url;
+   img.src = employe.url || "user.jpg";
     
    img.classList.add("w-12", "h-12", "rounded-full", "border");
     
