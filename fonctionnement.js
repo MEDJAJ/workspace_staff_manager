@@ -84,10 +84,12 @@ function addExperience() {
 
 
 ajauter.addEventListener("click", () =>{
+    resetPopupForm();
     popup.classList.remove("hidden");
 });
 
 closepopup.addEventListener("click",() =>{
+      resetPopupForm();
     popup.classList.add("hidden");
 })
 
@@ -168,6 +170,25 @@ vider_inputes();
 
     popup.classList.add("hidden");
 });
+
+
+
+function resetPopupForm() {
+    const inputs = [url, nom, role, email, telephone];
+
+    inputs.forEach(input => {
+        input.classList.remove("border-green-500", "border-red-500");
+        input.value = "";
+    });
+
+   
+    image.src = "user.jpg";
+
+  
+    document.getElementById("experiencesContainer").innerHTML = "";
+    expIndex = 0;
+}
+
 
 
 function validateExperiences(experiences) {
@@ -511,7 +532,7 @@ function openPopupForZone(zoneId, containerElement,currentezone){
             div.dataset.id = employes[i].id;
 
             div.innerHTML = `
-                <img src="${employes[i].url}" class="w-4 h-4 rounded-full object-cover"/>
+                <img src="${employes[i].url || "user.jpg"}" class="w-4 h-4 rounded-full object-cover"/>
                 <span class="font-medium text-[8px] text-gray-800">${employes[i].nom}</span>
                 <p class="text-xs text-gray-500">${employes[i].role}</p>
             `;
@@ -519,8 +540,7 @@ function openPopupForZone(zoneId, containerElement,currentezone){
             div.addEventListener("click", () => {
                 employes[i].currentezone=currentezone;
                 zone.assignedEmployees.push(employes[i]);
-                console.log(employes[i]);
-                console.log(zone.assignedEmployees)
+              
                  changerColor();
 
                 let id = Number(div.dataset.id);
@@ -537,7 +557,7 @@ function openPopupForZone(zoneId, containerElement,currentezone){
         experiences_afficher.innerHTML="";
       let id=Number(div_salle.dataset.id);
       let employe_cliquer=zone.assignedEmployees.find(e=>e.id==id);
-      empAvatar.src=employe_cliquer.url;
+      empAvatar.src=employe_cliquer.url || "user.jpg";
       empNom.textContent=employe_cliquer.nom;
       empRole.textContent=employe_cliquer.role;
       empEmail.textContent=employe_cliquer.email;
@@ -586,6 +606,11 @@ function openPopupForZone(zoneId, containerElement,currentezone){
 
         
            
+      }else{
+          const noExp = document.createElement("p");
+    noExp.textContent = "Aucune expérience";
+    noExp.classList.add("text-center", "text-gray-500", "italic", "mt-4");
+    experiences_afficher.appendChild(noExp);
       }
 
        document.getElementById("localisation").textContent= ` localisation actuelle : ${employe_cliquer.currentezone}`;
@@ -593,7 +618,7 @@ modalEmploye.classList.remove("hidden");
                     
                  });
                 div_salle.innerHTML = `
-                    <img src="${employe.url}" class="w-4 h-4 rounded-full object-cover"/>
+                    <img src="${employe.url || "user.jpg"}" class="w-4 h-4 rounded-full object-cover"/>
                     <span class="font-medium text-[8px] text-gray-800">${employe.nom}</span>
                     <button class="ml-auto bg-red-600 text-white rounded-full text-[10px] h-4 w-4 remove-btn">
                         ✕
