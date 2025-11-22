@@ -220,8 +220,6 @@ function saveLocaleStorage(employes){
 
 function createCard(employe){
 
-
-
     const div=document.createElement("div");
     div.dataset.id=employe.id;
     div.classList.add("flex", "items-center", "gap-3", "bg-gray-100" ,"hover:bg-gray-200", "cursor-pointer" ,"p-3", "rounded-xl", "shadow-sm", "transition","shrink-0");
@@ -230,7 +228,7 @@ function createCard(employe){
         experiences_afficher.innerHTML="";
       let id=Number(div.dataset.id);
       let employe_cliquer=employes.find(e=>e.id==id);
-      empAvatar.src=employe_cliquer.url || "user.jpg";;
+      empAvatar.src=employe_cliquer.url || "user.jpg";
       empNom.textContent=employe_cliquer.nom;
       empRole.textContent=employe_cliquer.role;
       empEmail.textContent=employe_cliquer.email;
@@ -276,6 +274,11 @@ function createCard(employe){
             
         }
            
+      }else{
+          const noExp = document.createElement("p");
+    noExp.textContent = "Aucune expérience";
+    noExp.classList.add("text-center", "text-gray-500", "italic", "mt-4");
+    experiences_afficher.appendChild(noExp);
       }
 
       
@@ -301,6 +304,9 @@ modalEmploye.classList.remove("hidden");
     card_info.appendChild(p2);
         div.appendChild(card_info);
         section_employes.appendChild(div);  
+
+        checkEmptyEmployees();
+
         
   
 }
@@ -432,7 +438,6 @@ changerColor();
 
 
 function canAssign(employe, zoneId) {
-   
    
 
     const zone = zones.find(z => z.zoneId === zoneId);
@@ -635,6 +640,8 @@ function removeemployer(id){
     section_employes.innerHTML = "";
      employes.forEach(e=>createCard(e));
     saveLocaleStorage(employes);
+    checkEmptyEmployees();
+
 }
 
 function addemployer(zoneId, id) {
@@ -654,19 +661,27 @@ console.log(employes)
     section_employes.innerHTML = "";
     employes.forEach(e => createCard(e));
 
+    checkEmptyEmployees();
+
+
    
 }
 
-const aside = document.getElementById("aside");
 
-function openNav() {
-    aside.classList.add("w-[260px]");
-    aside.classList.remove("w-0");
+
+function checkEmptyEmployees() {
+    const noEmployeeImg = document.getElementById("noEmployeeImg");
+
+    if (employes.length === 0) {
+        noEmployeeImg.classList.remove("hidden");
+    } else {
+        noEmployeeImg.classList.add("hidden");
+    }
 }
 
-function closeNav() {
-    aside.classList.add("w-0");
-    aside.classList.remove("md:w-[260px]");
-}
+checkEmptyEmployees();
+
+
+
 
 
