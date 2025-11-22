@@ -84,6 +84,7 @@ function addExperience() {
 
 
 ajauter.addEventListener("click", () =>{
+  
     resetPopupForm();
     popup.classList.remove("hidden");
 });
