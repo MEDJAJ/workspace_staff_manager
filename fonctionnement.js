@@ -54,6 +54,7 @@ const empPhone=document.getElementById("empPhone");
 
 
 
+
 let expIndex = 0;
 
 function addExperience() {
@@ -67,7 +68,6 @@ function addExperience() {
         <input type="text" placeholder="Entreprise" class="entreprise w-full border p-2 rounded-lg mb-2">
         <input type="date" placeholder="Début" class="debut w-full border p-2 rounded-lg mb-2">
         <input type="date" placeholder="Fin" class="fin w-full border p-2 rounded-lg mb-2">
-        <textarea placeholder="Description" class="description w-full border p-2 rounded-lg"></textarea>
         <button type="button" class="deleteExp bg-red-500 text-white px-3 py-1 rounded mt-2">Supprimer</button>
     `;
 
@@ -84,7 +84,6 @@ function addExperience() {
 
 
 ajauter.addEventListener("click", () =>{
-  
     resetPopupForm();
     popup.classList.remove("hidden");
 });
@@ -93,6 +92,8 @@ closepopup.addEventListener("click",() =>{
       resetPopupForm();
     popup.classList.add("hidden");
 })
+
+
 
 function updateImage(){
     let value_url=url.value;
@@ -104,16 +105,21 @@ function updateImage(){
    
 }
 
+
+
 let  employes=JSON.parse(localStorage.getItem("employes")) || [];
+
 if(employes.length!==0){
     employes.forEach(element => createCard(element));
 }
 
+
+
 let currentid = Number(localStorage.getItem("currentid")) || 0;
 
 
+
 envoyer.addEventListener("click", () => {
-    employes = JSON.parse(localStorage.getItem("employes")) || [];
 
     const url_value = url.value;
     const nom_value = nom.value;
@@ -124,13 +130,12 @@ envoyer.addEventListener("click", () => {
     const expBlocks = document.querySelectorAll(".experienceBlock");
     const experiences = [];
 
-    expBlocks.forEach(block => {
+    expBlocks.forEach(block =>{
         experiences.push({
             poste: block.querySelector(".poste").value,
             entreprise: block.querySelector(".entreprise").value,
             debut: block.querySelector(".debut").value,
-            fin: block.querySelector(".fin").value,
-            description: block.querySelector(".description").value
+            fin: block.querySelector(".fin").value
         });
     });
 
@@ -143,7 +148,7 @@ envoyer.addEventListener("click", () => {
 
   
     const expValidation = validateExperiences(experiences);
-    if (!expValidation.valid) {
+    if (!expValidation.valid){
         alert(expValidation.message);
         return;
     }
@@ -167,10 +172,11 @@ envoyer.addEventListener("click", () => {
     saveLocaleStorage(employes);
     createCard(employe);
 
-vider_inputes();
+    resetPopupForm();
 
     popup.classList.add("hidden");
 });
+
 
 
 
@@ -192,7 +198,9 @@ function resetPopupForm() {
 
 
 
+
 function validateExperiences(experiences) {
+
     for (let i = 0; i < experiences.length; i++) {
         const exp = experiences[i];
 
@@ -221,13 +229,9 @@ function validateExperiences(experiences) {
     return { valid: true };
 }
 
-function vider_inputes(){
-      url.value="";
-    nom.value="";
-    role.value="";
-    email.value="";
-    telephone.value="";
-}
+
+
+
 
 
 closeModalEmploye.addEventListener("click",()=>{
@@ -287,10 +291,7 @@ function createCard(employe){
           </div>
         </div>
 
-        <div class="mb-2">
-          <p class="font-semibold text-gray-700">Description:</p>
-          <p id="expDescription" class="text-gray-600">${employe_cliquer.experiences[i].description}</p>
-        </div>
+        
             `;
 
             experiences_afficher.appendChild(div_exp);
@@ -595,10 +596,7 @@ function openPopupForZone(zoneId, containerElement,currentezone){
           </div>
         </div>
 
-        <div class="mb-2">
-          <p class="font-semibold text-gray-700">Description:</p>
-          <p id="expDescription" class="text-gray-600">${employe_cliquer.experiences[i].description}</p>
-        </div>
+      
             `;
            
 
