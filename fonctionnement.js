@@ -199,146 +199,6 @@ function resetPopupForm() {
 
 
 
-function validateExperiences(experiences) {
-
-    for (let i = 0; i < experiences.length; i++) {
-        const exp = experiences[i];
-
-        if (!exp.poste || !exp.entreprise || !exp.debut || !exp.fin) {
-            return { valid: false, message: `Remplissez tous les champs de la expérience ${i + 1}` };
-        }
-
-        const debutDate = new Date(exp.debut);
-        const finDate = new Date(exp.fin);
-
-        if (debutDate >= finDate) {
-            return { valid: false, message: `La date de début doit être avant la date de fin pour la expérience ${i + 1}` };
-        }
-
-        for (let j = 0; j < i; j++) {
-            const otherExp = experiences[j];
-            const otherDebut = new Date(otherExp.debut);
-            const otherFin = new Date(otherExp.fin);
-
-            if ((debutDate <= otherFin && finDate >= otherDebut)) {
-                return { valid: false, message: `Chevauchement entre la expérience ${i + 1} et la expérience ${j + 1}` };
-            }
-        }
-    }
-
-    return { valid: true };
-}
-
-
-
-
-
-
-closeModalEmploye.addEventListener("click",()=>{
-    modalEmploye.classList.add("hidden");
-})
-
-
-function saveLocaleStorage(employes){
-    localStorage.setItem("employes",JSON.stringify(employes))
-}
-
-
-function createCard(employe){
-
-    const div=document.createElement("div");
-    div.dataset.id=employe.id;
-    div.classList.add("flex", "items-center", "gap-3", "bg-gray-100" ,"hover:bg-gray-200", "cursor-pointer" ,"p-3", "rounded-xl", "shadow-sm", "transition","shrink-0","transform", "hover:scale-105");
-    div.addEventListener("click",()=>{
-        
-        const experiences_afficher=document.getElementById("experiences_afficher");
-        experiences_afficher.innerHTML="";
-      let id=Number(div.dataset.id);
-      let employe_cliquer=employes.find(e=>e.id==id);
-      empAvatar.src=employe_cliquer.url || "user.jpg";
-      empNom.textContent=employe_cliquer.nom;
-      empRole.textContent=employe_cliquer.role;
-      empEmail.textContent=employe_cliquer.email;
-      empPhone.textContent=employe_cliquer.telephone;
- 
-
-      if(employe_cliquer.experiences.length!==0){
-        for(let i=0;i<employe_cliquer.experiences.length;i++){
-            const div_exp=document.createElement("div")
-            div_exp.innerHTML=`
-             <h3 class="text-lg font-bold mb-2 text-orange-400 ">Expérience Professionnelle ${i+1}</h3>
-        
-    
-
-        <div class="mb-2">
-          <p class="font-semibold text-gray-700">Poste:</p>
-          <p id="expPoste" class="text-gray-600">${employe_cliquer.experiences[i].poste}</p>
-        </div>
-
-        <div class="mb-2">
-          <p class="font-semibold text-gray-700">Entreprise:</p>
-          <p id="expEntreprise" class="text-gray-600">${employe_cliquer.experiences[i].entreprise}</p>
-        </div>
-
-        <div class="mb-2 flex gap-4">
-          <div>
-            <p class="font-semibold text-gray-700">Début:</p>
-            <p id="expDebut" class="text-gray-600">${employe_cliquer.experiences[i].debut}</p>
-          </div>
-          <div>
-            <p class="font-semibold text-gray-700">Fin:</p>
-            <p id="expFin" class="text-gray-600">${employe_cliquer.experiences[i].fin}</p>
-          </div>
-        </div>
-
-        
-            `;
-
-            experiences_afficher.appendChild(div_exp);
-            
-        }
-           
-      }else{
-          const noExp = document.createElement("p");
-    noExp.textContent = "Aucune expérience";
-    noExp.classList.add("text-center", "text-gray-500", "italic", "mt-4");
-    experiences_afficher.appendChild(noExp);
-      }
-
-      
-modalEmploye.classList.remove("hidden");
-
-    })
-   const img=document.createElement("img");
-   
-   img.src = employe.url || "user.jpg";
-    
-   img.classList.add("w-12", "h-12", "rounded-full", "border");
-    
-           div.appendChild(img);
-    const card_info=document.createElement("div");
-    card_info.classList.add("flex", "flex-col");
-   const p1=document.createElement("p");
-   p1.classList.add("md:text-sm","text-[12px]", "font-medium", "text-gray-800");
-   p1.textContent=employe.nom
-    card_info.appendChild(p1);
-       const p2=document.createElement("p");         
-       p2.classList.add("md:text-xs","text-[10px]", "text-gray-500");
-       p2.textContent=employe.role;
-    card_info.appendChild(p2);
-        div.appendChild(card_info);
-        section_employes.appendChild(div);  
-
-        checkEmptyEmployees();
-
-        
-  
-}
-
-
-
-
-
 
 
 function validation(url_value,nom_value,email_value,telephone_value){
@@ -383,6 +243,115 @@ return true;
 
 
 
+
+function validateExperiences(experiences) {
+
+    for (let i = 0; i < experiences.length; i++) {
+        const exp = experiences[i];
+
+        if (!exp.poste || !exp.entreprise || !exp.debut || !exp.fin) {
+            return { valid: false, message: `Remplissez tous les champs de la expérience ${i + 1}` };
+        }
+
+        const debutDate = new Date(exp.debut);
+        const finDate = new Date(exp.fin);
+
+        if (debutDate >= finDate) {
+            return { valid: false, message: `La date de début doit être avant la date de fin pour la expérience ${i + 1}` };
+        }
+
+        for (let j = 0; j < i; j++) {
+            const otherExp = experiences[j];
+            const otherDebut = new Date(otherExp.debut);
+            const otherFin = new Date(otherExp.fin);
+
+            if ((debutDate <= otherFin && finDate >= otherDebut)) {
+                return { valid: false, message: `Chevauchement entre la expérience ${i + 1} et la expérience ${j + 1}` };
+            }
+        }
+    }
+
+    return { valid: true };
+}
+
+
+
+
+
+
+
+closeModalEmploye.addEventListener("click",()=>{
+    modalEmploye.classList.add("hidden");
+})
+
+
+
+
+function saveLocaleStorage(employes){
+    localStorage.setItem("employes",JSON.stringify(employes))
+}
+
+
+
+
+
+
+function createCard(employe){
+
+    const div=document.createElement("div");
+
+    div.dataset.id=employe.id;
+
+    div.classList.add("flex", "items-center", "gap-3", "bg-gray-100" ,"hover:bg-gray-200", "cursor-pointer" ,"p-3", "rounded-xl", "shadow-sm", "transition","shrink-0","transform", "hover:scale-105","hover:rounded-none");
+       
+   const img=document.createElement("img");
+   
+   img.src = employe.url || "user.jpg";
+    
+   img.classList.add("w-12", "h-12", "rounded-full", "border");
+    
+           div.appendChild(img);
+
+    const card_info=document.createElement("div");
+
+    card_info.classList.add("flex", "flex-col");
+
+   const p1=document.createElement("p");
+
+   p1.classList.add("md:text-sm","text-[12px]", "font-medium", "text-gray-800");
+
+   p1.textContent=employe.nom
+
+    card_info.appendChild(p1);
+
+       const p2=document.createElement("p");   
+
+       p2.classList.add("md:text-xs","text-[10px]", "text-gray-500");
+
+       p2.textContent=employe.role;
+
+    card_info.appendChild(p2);
+
+        div.appendChild(card_info);
+
+        section_employes.appendChild(div);  
+
+        checkEmptyEmployees();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 const zones = [
   { 
     zoneId: 1, 
@@ -395,14 +364,14 @@ const zones = [
     zoneId: 2, 
     zoneName: "Salle Réception", 
     allowedRoles: ["Manager","Receptionniste"], 
-    capacity: 3, 
+    capacity: 1, 
     assignedEmployees: [] 
   },
   { 
     zoneId: 3, 
     zoneName: "Salle des serveurs", 
     allowedRoles: ["Technicien IT","Manager"], 
-    capacity: 3, 
+    capacity: 2, 
     assignedEmployees: [] 
   },
   { 
@@ -431,7 +400,9 @@ const zones = [
 
 
 
+
 function changerColor(){
+
     const réception_complet=document.getElementById("réception_complet");
     const serveurs_complet=document.getElementById("serveurs_complet");
     const sécurité_complet=document.getElementById("sécurité_complet");
@@ -458,16 +429,19 @@ function changerColor(){
     }
 }
 
+
 changerColor();
 
 
-function canAssign(employe, zoneId) {
-   
 
+
+
+function canAssign(employe, zoneId){
+   
     const zone = zones.find(z => z.zoneId === zoneId);
-    if (!zone) return false;
 
     const allowed = zone.allowedRoles.map(r => r.trim().toLowerCase());
+
     const empRole = employe.role.trim().toLowerCase();
 
     const roleAllowed = allowed.includes(empRole);
@@ -486,50 +460,63 @@ function canAssign(employe, zoneId) {
 btn_réception_ajauter.addEventListener("click", () =>{
 
    openPopupForZone(2,salle_réception,"Salle Réception");
- 
 
 });
 
 btn_conférence_ajauter.addEventListener("click",()=>{
+
       openPopupForZone(1,salle_conférence,"Salle de conférence");
-      
 
 })
 
 btn_serveure_ajauter.addEventListener("click",()=>{
+
       openPopupForZone(3,salle_serveurs,"Salle des serveurs");
       
-
 })
 
 btn_securite_ajauter.addEventListener("click",() =>{
+
     openPopupForZone(4,salle_sécurite,"Salle de sécurité");
-  
 
 })
 btn_personnel_ajauter.addEventListener("click",()=>{
+
     openPopupForZone(5,salle_personnel,"Salle du personnel");
+
 })
 
 btn_archive_ajauter.addEventListener("click",()=>{
+
     openPopupForZone(6,salle_archive,"Salle d’archives")
-   
 
 })
+
+
 
 
 
 function openPopupForZone(zoneId, containerElement,currentezone){
 
     popup_liste_selectionner.innerHTML = "";
+
     const zone = zones.find(z => z.zoneId === zoneId);
+
+
+    if(zone.assignedEmployees.length>=zone.capacity){
+        alert("Cette zone est pleine, il n’y a plus de capacité pour ajouter d’autres employés.");
+        return;
+    }
+
       
     for (let i = 0; i < employes.length; i++) {
              
-        if (canAssign(employes[i], zoneId)) {
+        if (canAssign(employes[i], zoneId)){
 
             const div = document.createElement("div");
+
             div.classList.add("flex", "items-center", "gap-[3px]", "bg-gray-100",
+
                 "rounded-lg", "h-[30px]", "px-2", "w-fit", "cursor-pointer");
 
             div.dataset.id = employes[i].id;
@@ -540,41 +527,58 @@ function openPopupForZone(zoneId, containerElement,currentezone){
                 <p class="text-xs text-gray-500">${employes[i].role}</p>
             `;
 
+
             div.addEventListener("click", () => {
+
                 employes[i].currentezone=currentezone;
+
                 zone.assignedEmployees.push(employes[i]);
               
                  changerColor();
 
                 let id = Number(div.dataset.id);
+
                 const employe = employes.find(e => e.id === id);
 
                 const div_salle = document.createElement("div");
+
                 div_salle.classList.add("flex", "items-center", "gap-[3px]",
+
                     "bg-gray-100", "rounded-lg", "h-[30px]", "px-2", "w-fit","hover:cursor-pointer");
 
                 div_salle.dataset.id = id;
+
+
                  div_salle.addEventListener("click",()=>{
 
         const experiences_afficher=document.getElementById("experiences_afficher");
+
         experiences_afficher.innerHTML="";
+
       let id=Number(div_salle.dataset.id);
+
       let employe_cliquer=zone.assignedEmployees.find(e=>e.id==id);
+
       empAvatar.src=employe_cliquer.url || "user.jpg";
+      
       empNom.textContent=employe_cliquer.nom;
+
       empRole.textContent=employe_cliquer.role;
+
       empEmail.textContent=employe_cliquer.email;
+
       empPhone.textContent=employe_cliquer.telephone;
  
       
       if(employe_cliquer.experiences.length!==0){
+
         for(let i=0;i<employe_cliquer.experiences.length;i++){
+
             const div_exp=document.createElement("div")
+
             div_exp.innerHTML=`
              <h3 class="text-lg font-bold mb-2 text-orange-400 ">Expérience Professionnelle ${i+1}</h3>
         
-    
-
         <div class="mb-2">
           <p class="font-semibold text-gray-700">Poste:</p>
           <p id="expPoste" class="text-gray-600">${employe_cliquer.experiences[i].poste}</p>
@@ -608,15 +612,22 @@ function openPopupForZone(zoneId, containerElement,currentezone){
            
       }else{
           const noExp = document.createElement("p");
+
     noExp.textContent = "Aucune expérience";
+
     noExp.classList.add("text-center", "text-gray-500", "italic", "mt-4");
+
     experiences_afficher.appendChild(noExp);
       }
 
        document.getElementById("localisation").textContent= ` localisation actuelle : ${employe_cliquer.currentezone}`;
+
 modalEmploye.classList.remove("hidden");
                     
                  });
+
+
+
                 div_salle.innerHTML = `
                     <img src="${employe.url || "user.jpg"}" class="w-4 h-4 rounded-full object-cover"/>
                     <span class="font-medium text-[8px] text-gray-800">${employe.nom}</span>
@@ -632,24 +643,35 @@ modalEmploye.classList.remove("hidden");
                 popup_liste_selectionner.classList.add("hidden");
 
                 div_salle.querySelector(".remove-btn").addEventListener("click", () => {
+
                     div_salle.remove();
+
                     addemployer(zoneId, id);
+
                      changerColor();
+
                 });
                  
             });
+
+
 
             popup_liste_selectionner.appendChild(div);
         }
     }
     const supprimer=document.createElement("button");
+
   supprimer.textContent = "Annuler";
 
 supprimer.classList.add( "bg-red-600",  "hover:bg-red-700",  "text-white","px-3","py-1", "rounded-lg", "text-sm","font-medium","transition", "duration-200","shadow"
 );
+
     supprimer.addEventListener("click",()=>{
+
         popup_liste_selectionner.classList.add("hidden");
-    })
+
+    });
+
     popup_liste_selectionner.appendChild(supprimer);
 
     popup_liste_selectionner.classList.remove("hidden");
@@ -661,10 +683,15 @@ supprimer.classList.add( "bg-red-600",  "hover:bg-red-700",  "text-white","px-3"
 
 
 function removeemployer(id){
+
     employes=employes.filter(e=>e.id !==id);
+
     section_employes.innerHTML = "";
+
      employes.forEach(e=>createCard(e));
+
     saveLocaleStorage(employes);
+
     checkEmptyEmployees();
 
 }
@@ -672,18 +699,24 @@ function removeemployer(id){
 function addemployer(zoneId, id) {
     
     const zone = zones.find(z => z.zoneId === zoneId);
+
     if (!zone) return;
 
     const employe = zone.assignedEmployees.find(e => e.id === id);
+
     if (!employe) return;
 
     zone.assignedEmployees = zone.assignedEmployees.filter(e => e.id !== id);
- console.log(employes)
+
+
+
     employes.push(employe);
    
  saveLocaleStorage(employes);
-console.log(employes)
+
+
     section_employes.innerHTML = "";
+
     employes.forEach(e => createCard(e));
 
     checkEmptyEmployees();
@@ -695,12 +728,17 @@ console.log(employes)
 
 
 function checkEmptyEmployees() {
+
     const noEmployeeImg = document.getElementById("noEmployeeImg");
 
     if (employes.length === 0) {
+
         noEmployeeImg.classList.remove("hidden");
+
     } else {
+
         noEmployeeImg.classList.add("hidden");
+        
     }
 }
 
