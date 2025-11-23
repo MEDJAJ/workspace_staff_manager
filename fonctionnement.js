@@ -244,8 +244,9 @@ function createCard(employe){
 
     const div=document.createElement("div");
     div.dataset.id=employe.id;
-    div.classList.add("flex", "items-center", "gap-3", "bg-gray-100" ,"hover:bg-gray-200", "cursor-pointer" ,"p-3", "rounded-xl", "shadow-sm", "transition","shrink-0");
+    div.classList.add("flex", "items-center", "gap-3", "bg-gray-100" ,"hover:bg-gray-200", "cursor-pointer" ,"p-3", "rounded-xl", "shadow-sm", "transition","shrink-0","transform", "hover:scale-105");
     div.addEventListener("click",()=>{
+        
         const experiences_afficher=document.getElementById("experiences_afficher");
         experiences_afficher.innerHTML="";
       let id=Number(div.dataset.id);
